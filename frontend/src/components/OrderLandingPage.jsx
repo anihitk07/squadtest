@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { OrderDetail } from './OrderDetail';
 
+const PAGE_SIZE = 5;
+
 const VIEW_STATES = {
   loading: 'loading',
   success: 'success',
@@ -75,6 +77,8 @@ export function OrderLandingPage({ fetchOrderHistory, fetchOrderDetail }) {
   const [isDetailLoading, setIsDetailLoading] = useState(false);
   const [detailError, setDetailError] = useState('');
   const [sortConfig, setSortConfig] = useState(DEFAULT_SORT);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     let cancelled = false;
@@ -161,8 +165,25 @@ export function OrderLandingPage({ fetchOrderHistory, fetchOrderDetail }) {
       return [];
     }
 
-    return sortOrders(orders, sortConfig);
-  }, [orders, ordersState, sortConfig]);
+    const query = searchQuery.trim().toLowerCase();
+    const filtered = query
+      ? orders.filter(
+          (order) =>
+            order.id.toLowerCase().includes(query) ||
+            order.orderDate.toLowerCase().includes(query) ||
+            order.status.toLowerCase().includes(query),
+        )
+      : orders;
+
+    return sortOrders(filtered, sortConfig);
+  }, [orders, ordersState, sortConfig, searchQuery]);
+
+  const totalPages = Math.max(1, Math.ceil(sortedOrders.length / PAGE_SIZE));
+
+  const paginatedOrders = useMemo(() => {
+    const start = (currentPage - 1) * PAGE_SIZE;
+    return sortedOrders.slice(start, start + PAGE_SIZE);
+  }, [sortedOrders, currentPage]);
 
   function handleSort(columnKey) {
     setSortConfig((previousSort) => {
@@ -179,6 +200,12 @@ export function OrderLandingPage({ fetchOrderHistory, fetchOrderDetail }) {
         direction: SORT_DIRECTIONS.asc,
       };
     });
+    setCurrentPage(1);
+  }
+
+  function handleSearch(event) {
+    setSearchQuery(event.target.value);
+    setCurrentPage(1);
   }
 
   function getSortAria(columnKey) {
@@ -212,6 +239,16 @@ export function OrderLandingPage({ fetchOrderHistory, fetchOrderDetail }) {
 
         {ordersState === VIEW_STATES.success ? (
           <div className="order-grid-wrapper">
+            <div className="order-grid-toolbar">
+              <input
+                type="search"
+                className="order-search-input"
+                placeholder="Search by order ID, date, or status…"
+                value={searchQuery}
+                onChange={handleSearch}
+                aria-label="Search orders"
+              />
+            </div>
             <table className="orders-table">
               <thead>
                 <tr>
@@ -233,29 +270,62 @@ export function OrderLandingPage({ fetchOrderHistory, fetchOrderDetail }) {
                 </tr>
               </thead>
               <tbody>
-                {sortedOrders.map((order) => {
-                  const isSelected = order.id === selectedOrderId;
-                  return (
-                    <tr key={order.id} className={isSelected ? 'is-selected' : ''}>
-                      <td>
-                        <button
-                          type="button"
-                          className="order-id-link"
-                          onClick={() => setSelectedOrderId(order.id)}
-                        >
-                          {order.id}
-                        </button>
-                      </td>
-                      <td>{order.orderDate}</td>
-                      <td>
-                        <span className={`status-chip ${getStatusTone(order.status)}`}>{order.status}</span>
-                      </td>
-                      <td>{currencyFormatter.format(order.totalCents / 100)}</td>
-                    </tr>
-                  );
-                })}
+                {paginatedOrders.length === 0 ? (
+                  <tr>
+                    <td colSpan={SORTABLE_COLUMNS.length} className="order-grid-no-results">
+                      No orders match your search.
+                    </td>
+                  </tr>
+                ) : (
+                  paginatedOrders.map((order) => {
+                    const isSelected = order.id === selectedOrderId;
+                    return (
+                      <tr key={order.id} className={isSelected ? 'is-selected' : ''}>
+                        <td>
+                          <button
+                            type="button"
+                            className="order-id-link"
+                            onClick={() => setSelectedOrderId(order.id)}
+                          >
+                            {order.id}
+                          </button>
+                        </td>
+                        <td>{order.orderDate}</td>
+                        <td>
+                          <span className={`status-chip ${getStatusTone(order.status)}`}>{order.status}</span>
+                        </td>
+                        <td>{currencyFormatter.format(order.totalCents / 100)}</td>
+                      </tr>
+                    );
+                  })
+                )}
               </tbody>
             </table>
+            {totalPages > 1 && (
+              <div className="order-grid-pagination" aria-label="Pagination">
+                <button
+                  type="button"
+                  className="pagination-btn"
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  aria-label="Previous page"
+                >
+                  ‹ Prev
+                </button>
+                <span className="pagination-info" aria-live="polite">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button
+                  type="button"
+                  className="pagination-btn"
+                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  aria-label="Next page"
+                >
+                  Next ›
+                </button>
+              </div>
+            )}
           </div>
         ) : null}
       </section>
