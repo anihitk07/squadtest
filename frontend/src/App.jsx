@@ -3,7 +3,6 @@ import { fetchUserProfile } from './api/profileApi';
 import { fetchOrderHistory, fetchOrderDetail } from './api/ordersApi';
 import { OrderLandingPage } from './components/OrderLandingPage';
 import { UserProfilePage } from './components/UserProfilePage';
-import { SettingsPage } from './components/SettingsPage';
 import './App.css';
 
 function getInitials(fullName) {
@@ -31,13 +30,11 @@ function App() {
   const pageTitleByView = {
     orders: 'Orders',
     profile: 'User Profile',
-    settings: 'Settings',
   };
 
   const pageDescriptionByView = {
     orders: 'Browse all orders, sort columns, and open full order details.',
     profile: 'Snapshot of account information and order activity.',
-    settings: 'Manage your preferences and app settings.',
   };
 
   return (
@@ -64,18 +61,6 @@ function App() {
           >
             Orders
           </button>
-          <button
-            className={`nav-button ${currentView === 'profile' ? 'active' : ''}`}
-            onClick={() => setCurrentView('profile')}
-          >
-            Profile
-          </button>
-          <button
-            className={`nav-button ${currentView === 'settings' ? 'active' : ''}`}
-            onClick={() => setCurrentView('settings')}
-          >
-            Settings
-          </button>
         </nav>
       </header>
 
@@ -83,7 +68,6 @@ function App() {
         <OrderLandingPage fetchOrderHistory={fetchOrderHistory} fetchOrderDetail={fetchOrderDetail} />
       ) : null}
       {currentView === 'profile' && <UserProfilePage fetchProfile={fetchUserProfile} />}
-      {currentView === 'settings' && <SettingsPage />}
     </main>
   );
 }
