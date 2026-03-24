@@ -27,6 +27,8 @@ const SORTABLE_COLUMNS = [
   { key: 'totalCents', label: 'Total', numeric: true },
 ];
 
+const INITIAL_COLUMN_FILTERS = Object.fromEntries(SORTABLE_COLUMNS.map((col) => [col.key, '']));
+
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
@@ -78,6 +80,7 @@ export function OrderLandingPage({ fetchOrderHistory, fetchOrderDetail }) {
   const [detailError, setDetailError] = useState('');
   const [sortConfig, setSortConfig] = useState(DEFAULT_SORT);
   const [searchQuery, setSearchQuery] = useState('');
+  const [columnFilters, setColumnFilters] = useState(INITIAL_COLUMN_FILTERS);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -166,7 +169,7 @@ export function OrderLandingPage({ fetchOrderHistory, fetchOrderDetail }) {
     }
 
     const query = searchQuery.trim().toLowerCase();
-    const filtered = query
+    let filtered = query
       ? orders.filter(
           (order) =>
             order.id.toLowerCase().includes(query) ||
@@ -175,8 +178,21 @@ export function OrderLandingPage({ fetchOrderHistory, fetchOrderDetail }) {
         )
       : orders;
 
+    filtered = filtered.filter((order) =>
+      SORTABLE_COLUMNS.every((column) => {
+        const filterValue = columnFilters[column.key]?.trim().toLowerCase();
+        if (!filterValue) return true;
+
+        if (column.key === 'totalCents') {
+          return currencyFormatter.format(order.totalCents / 100).toLowerCase().includes(filterValue);
+        }
+
+        return String(order[column.key]).toLowerCase().includes(filterValue);
+      }),
+    );
+
     return sortOrders(filtered, sortConfig);
-  }, [orders, ordersState, sortConfig, searchQuery]);
+  }, [orders, ordersState, sortConfig, searchQuery, columnFilters]);
 
   const totalPages = Math.max(1, Math.ceil(sortedOrders.length / PAGE_SIZE));
 
@@ -205,6 +221,11 @@ export function OrderLandingPage({ fetchOrderHistory, fetchOrderDetail }) {
 
   function handleSearch(event) {
     setSearchQuery(event.target.value);
+    setCurrentPage(1);
+  }
+
+  function handleColumnFilterChange(columnKey, value) {
+    setColumnFilters((prev) => ({ ...prev, [columnKey]: value }));
     setCurrentPage(1);
   }
 
@@ -265,6 +286,20 @@ export function OrderLandingPage({ fetchOrderHistory, fetchOrderDetail }) {
                           {getSortIndicator(column.key)}
                         </span>
                       </button>
+                    </th>
+                  ))}
+                </tr>
+                <tr className="order-grid-filter-row">
+                  {SORTABLE_COLUMNS.map((column) => (
+                    <th key={column.key} scope="col">
+                      <input
+                        type="search"
+                        className="column-filter-input"
+                        placeholder="Filter…"
+                        value={columnFilters[column.key]}
+                        onChange={(e) => handleColumnFilterChange(column.key, e.target.value)}
+                        aria-label={`Filter by ${column.label}`}
+                      />
                     </th>
                   ))}
                 </tr>
