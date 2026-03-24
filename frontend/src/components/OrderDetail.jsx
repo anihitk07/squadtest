@@ -5,6 +5,19 @@ function formatCurrency(cents) {
   }).format(cents / 100);
 }
 
+function getStatusTone(status) {
+  const value = String(status || '').toLowerCase();
+  if (['delivered', 'shipped', 'complete', 'completed'].includes(value)) {
+    return 'status-success';
+  }
+
+  if (['processing', 'pending', 'in transit'].includes(value)) {
+    return 'status-progress';
+  }
+
+  return 'status-neutral';
+}
+
 export function OrderDetail({ order, isLoading }) {
   if (isLoading) {
     return <p className="panel-message">Loading order details...</p>;
@@ -18,7 +31,7 @@ export function OrderDetail({ order, isLoading }) {
     <section aria-label="Order detail">
       <header className="order-detail-header">
         <h2>Order #{order.orderNumber}</h2>
-        <span className="status-pill">{order.status}</span>
+        <span className={`status-pill ${getStatusTone(order.status)}`}>{order.status}</span>
       </header>
       <p className="order-detail-date">Date: {order.orderDate}</p>
 

@@ -3,37 +3,72 @@
 }
 
 :root {
-  --bg-primary: #f5f6f8;
+  --bg-primary: #f4f5ff;
   --bg-panel: #ffffff;
-  --text-primary: #1f2937;
-  --text-secondary: #64748b;
-  --border-color: #d9e0ea;
-  --hover-bg: #f1f5f9;
-  --active-bg: #2563eb;
-  --error-bg: #fee2e2;
-  --error-border: #fecaca;
-  --error-text: #991b1b;
-  --stat-tile-bg: #f8fafc;
+  --bg-panel-elevated: #ffffffd9;
+  --text-primary: #172036;
+  --text-secondary: #596780;
+  --border-color: #d9def2;
+  --border-strong: #b8c3ed;
+  --hover-bg: #eef1ff;
+  --active-bg: #7a5cff;
+  --active-bg-strong: #5f46db;
+  --active-contrast: #ffffff;
+  --shadow-soft: 0 12px 30px rgb(47 66 132 / 12%);
+  --shadow-interactive: 0 10px 20px rgb(96 72 229 / 24%);
+  --table-header-bg: #f7f8ff;
+  --table-row-hover: #f4f6ff;
+  --table-row-selected: #ede8ff;
+  --status-success-bg: #ddf7eb;
+  --status-success-text: #0f6d3f;
+  --status-progress-bg: #dfeaff;
+  --status-progress-text: #1f4fa7;
+  --status-neutral-bg: #efe9ff;
+  --status-neutral-text: #5e3db6;
+  --error-bg: #ffe8ef;
+  --error-border: #ffc5d8;
+  --error-text: #9f204d;
+  --stat-tile-bg: #f8f8ff;
 }
 
 [data-theme="dark"] {
-  --bg-primary: #0f172a;
-  --bg-panel: #1e293b;
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --border-color: #334155;
-  --hover-bg: #334155;
-  --active-bg: #3b82f6;
-  --error-bg: #450a0a;
-  --error-border: #7f1d1d;
-  --error-text: #fca5a5;
-  --stat-tile-bg: #0f172a;
+  --bg-primary: #101427;
+  --bg-panel: #161c33;
+  --bg-panel-elevated: #1b2240ed;
+  --text-primary: #f5f8ff;
+  --text-secondary: #b5c0e3;
+  --border-color: #2e3861;
+  --border-strong: #4e5f9f;
+  --hover-bg: #232d50;
+  --active-bg: #9a87ff;
+  --active-bg-strong: #7d66f2;
+  --active-contrast: #fefeff;
+  --shadow-soft: 0 14px 30px rgb(4 7 20 / 42%);
+  --shadow-interactive: 0 12px 22px rgb(122 92 255 / 38%);
+  --table-header-bg: #1d2747;
+  --table-row-hover: #212c52;
+  --table-row-selected: #2b2a54;
+  --status-success-bg: #1f4d37;
+  --status-success-text: #b7f7d3;
+  --status-progress-bg: #233f72;
+  --status-progress-text: #c7ddff;
+  --status-neutral-bg: #3a2d63;
+  --status-neutral-text: #e2d7ff;
+  --error-bg: #4d1732;
+  --error-border: #7f3158;
+  --error-text: #ffbfdc;
+  --stat-tile-bg: #11192e;
 }
 
 body {
   margin: 0;
+  min-height: 100vh;
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  line-height: 1.45;
   background: var(--bg-primary);
+  background-image:
+    radial-gradient(circle at 0% 0%, rgb(122 92 255 / 10%) 0, transparent 35%),
+    radial-gradient(circle at 100% 10%, rgb(70 194 255 / 10%) 0, transparent 35%);
   color: var(--text-primary);
   transition: background-color 0.3s, color 0.3s;
 }
@@ -46,4 +81,9 @@ p {
 
 button {
   font: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--active-bg, #7a5cff) 40%, #ffffff);
+  outline-offset: 2px;
 }
