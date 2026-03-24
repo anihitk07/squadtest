@@ -1,0 +1,54 @@
+[
+  {
+    "id": "ord-1001",
+    "orderNumber": "1001",
+    "orderDate": "2026-03-20",
+    "status": "Delivered",
+    "totalCents": 9950,
+    "items": [
+      {
+        "productName": "Notebook",
+        "quantity": 1,
+        "unitPriceCents": 4500
+      },
+      {
+        "productName": "Desk Lamp",
+        "quantity": 1,
+        "unitPriceCents": 5450
+      }
+    ]
+  },
+  {
+    "id": "ord-1002",
+    "orderNumber": "1002",
+    "orderDate": "2026-03-18",
+    "status": "Shipped",
+    "totalCents": 7300,
+    "items": [
+      {
+        "productName": "Wireless Mouse",
+        "quantity": 1,
+        "unitPriceCents": 2900
+      },
+      {
+        "productName": "Mouse Pad",
+        "quantity": 2,
+        "unitPriceCents": 2200
+      }
+    ]
+  },
+  {
+    "id": "ord-1003",
+    "orderNumber": "1003",
+    "orderDate": "2026-03-14",
+    "status": "Processing",
+    "totalCents": 15600,
+    "items": [
+      {
+        "productName": "Mechanical Keyboard",
+        "quantity": 1,
+        "unitPriceCents": 15600
+      }
+    ]
+  }
+]

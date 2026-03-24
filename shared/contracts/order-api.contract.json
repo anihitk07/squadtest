@@ -1,0 +1,42 @@
+{
+  "service": "order-api",
+  "basePath": "/api",
+  "endpoints": {
+    "listOrders": {
+      "method": "GET",
+      "path": "/orders",
+      "response": {
+        "data": [
+          {
+            "id": "string",
+            "orderNumber": "string",
+            "orderDate": "YYYY-MM-DD",
+            "status": "string",
+            "totalCents": "number"
+          }
+        ]
+      }
+    },
+    "getOrderDetail": {
+      "method": "GET",
+      "path": "/orders/:orderId",
+      "response": {
+        "data": {
+          "id": "string",
+          "orderNumber": "string",
+          "orderDate": "YYYY-MM-DD",
+          "status": "string",
+          "totalCents": "number",
+          "items": [
+            {
+              "id": "number",
+              "productName": "string",
+              "quantity": "number",
+              "unitPriceCents": "number"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "user-1001",
+  "fullName": "Taylor Reed",
+  "email": "taylor.reed@example.com",
+  "avatarUrl": null,
+  "joinedDate": "2024-11-08",
+  "bio": "Productivity enthusiast who loves ergonomic setups and practical desk upgrades.",
+  "stats": {
+    "orderCount": 3,
+    "lastOrderDate": "2026-03-20",
+    "lifetimeValueCents": 32850
+  }
+}

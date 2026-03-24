@@ -1,0 +1,33 @@
+{
+  "service": "user-profile-api",
+  "basePath": "/api",
+  "endpoints": {
+    "getUserProfile": {
+      "method": "GET",
+      "path": "/profile",
+      "response": {
+        "data": {
+          "id": "string",
+          "fullName": "string",
+          "email": "string",
+          "avatarUrl": "string|null",
+          "joinedDate": "YYYY-MM-DD",
+          "bio": "string",
+          "stats": {
+            "orderCount": "number",
+            "lastOrderDate": "YYYY-MM-DD|null",
+            "lifetimeValueCents": "number"
+          }
+        }
+      },
+      "errors": {
+        "404": {
+          "error": "User profile not found."
+        },
+        "500": {
+          "error": "Failed to retrieve profile."
+        }
+      }
+    }
+  }
+}
