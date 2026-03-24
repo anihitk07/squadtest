@@ -202,5 +202,706 @@
         "unitPriceCents": 6900
       }
     ]
+  },
+  {
+    "id": "ord-1012",
+    "orderNumber": "1012",
+    "orderDate": "2026-01-25",
+    "status": "Delivered",
+    "totalCents": 8400,
+    "items": [
+      {
+        "productName": "Standing Desk Mat",
+        "quantity": 1,
+        "unitPriceCents": 5900
+      },
+      {
+        "productName": "Cable Tray",
+        "quantity": 1,
+        "unitPriceCents": 2500
+      }
+    ]
+  },
+  {
+    "id": "ord-1013",
+    "orderNumber": "1013",
+    "orderDate": "2026-01-20",
+    "status": "Shipped",
+    "totalCents": 19900,
+    "items": [
+      {
+        "productName": "Noise-Cancelling Headphones",
+        "quantity": 1,
+        "unitPriceCents": 19900
+      }
+    ]
+  },
+  {
+    "id": "ord-1014",
+    "orderNumber": "1014",
+    "orderDate": "2026-01-15",
+    "status": "Delivered",
+    "totalCents": 4600,
+    "items": [
+      {
+        "productName": "USB Hub 7-Port",
+        "quantity": 1,
+        "unitPriceCents": 3200
+      },
+      {
+        "productName": "USB Extension Cable",
+        "quantity": 1,
+        "unitPriceCents": 1400
+      }
+    ]
+  },
+  {
+    "id": "ord-1015",
+    "orderNumber": "1015",
+    "orderDate": "2026-01-10",
+    "status": "Processing",
+    "totalCents": 33500,
+    "items": [
+      {
+        "productName": "Laptop Stand",
+        "quantity": 1,
+        "unitPriceCents": 8700
+      },
+      {
+        "productName": "MacBook Pro 14in",
+        "quantity": 1,
+        "unitPriceCents": 24800
+      }
+    ]
+  },
+  {
+    "id": "ord-1016",
+    "orderNumber": "1016",
+    "orderDate": "2026-01-05",
+    "status": "Delivered",
+    "totalCents": 6200,
+    "items": [
+      {
+        "productName": "Ethernet Switch 8-Port",
+        "quantity": 1,
+        "unitPriceCents": 6200
+      }
+    ]
+  },
+  {
+    "id": "ord-1017",
+    "orderNumber": "1017",
+    "orderDate": "2025-12-28",
+    "status": "Cancelled",
+    "totalCents": 9100,
+    "items": [
+      {
+        "productName": "Smart Bulb Pack (4x)",
+        "quantity": 1,
+        "unitPriceCents": 4200
+      },
+      {
+        "productName": "Smart Plug (2x)",
+        "quantity": 1,
+        "unitPriceCents": 4900
+      }
+    ]
+  },
+  {
+    "id": "ord-1018",
+    "orderNumber": "1018",
+    "orderDate": "2025-12-22",
+    "status": "Delivered",
+    "totalCents": 14300,
+    "items": [
+      {
+        "productName": "Gaming Controller",
+        "quantity": 1,
+        "unitPriceCents": 6900
+      },
+      {
+        "productName": "Controller Charging Dock",
+        "quantity": 1,
+        "unitPriceCents": 4200
+      },
+      {
+        "productName": "Silicone Controller Grips",
+        "quantity": 2,
+        "unitPriceCents": 1600
+      }
+    ]
+  },
+  {
+    "id": "ord-1019",
+    "orderNumber": "1019",
+    "orderDate": "2025-12-18",
+    "status": "Shipped",
+    "totalCents": 5800,
+    "items": [
+      {
+        "productName": "Webcam Desk Mount",
+        "quantity": 1,
+        "unitPriceCents": 2300
+      },
+      {
+        "productName": "Ring Light 10in",
+        "quantity": 1,
+        "unitPriceCents": 3500
+      }
+    ]
+  },
+  {
+    "id": "ord-1020",
+    "orderNumber": "1020",
+    "orderDate": "2025-12-12",
+    "status": "Returned",
+    "totalCents": 10500,
+    "items": [
+      {
+        "productName": "Portable Projector",
+        "quantity": 1,
+        "unitPriceCents": 10500
+      }
+    ]
+  },
+  {
+    "id": "ord-1021",
+    "orderNumber": "1021",
+    "orderDate": "2025-12-05",
+    "status": "Delivered",
+    "totalCents": 7700,
+    "items": [
+      {
+        "productName": "Desk Organizer",
+        "quantity": 1,
+        "unitPriceCents": 3400
+      },
+      {
+        "productName": "Document Tray",
+        "quantity": 2,
+        "unitPriceCents": 2150
+      }
+    ]
+  },
+  {
+    "id": "ord-1022",
+    "orderNumber": "1022",
+    "orderDate": "2025-11-28",
+    "status": "Processing",
+    "totalCents": 26400,
+    "items": [
+      {
+        "productName": "4K Capture Card",
+        "quantity": 1,
+        "unitPriceCents": 16900
+      },
+      {
+        "productName": "Stream Deck Mini",
+        "quantity": 1,
+        "unitPriceCents": 9500
+      }
+    ]
+  },
+  {
+    "id": "ord-1023",
+    "orderNumber": "1023",
+    "orderDate": "2025-11-20",
+    "status": "Delivered",
+    "totalCents": 4150,
+    "items": [
+      {
+        "productName": "Wrist Rest",
+        "quantity": 1,
+        "unitPriceCents": 1800
+      },
+      {
+        "productName": "Screen Privacy Filter",
+        "quantity": 1,
+        "unitPriceCents": 2350
+      }
+    ]
+  },
+  {
+    "id": "ord-1024",
+    "orderNumber": "1024",
+    "orderDate": "2025-11-14",
+    "status": "Shipped",
+    "totalCents": 31200,
+    "items": [
+      {
+        "productName": "Ultrawide Monitor 34in",
+        "quantity": 1,
+        "unitPriceCents": 31200
+      }
+    ]
+  },
+  {
+    "id": "ord-1025",
+    "orderNumber": "1025",
+    "orderDate": "2025-11-08",
+    "status": "Delivered",
+    "totalCents": 5600,
+    "items": [
+      {
+        "productName": "Keyboard Cleaning Brush",
+        "quantity": 2,
+        "unitPriceCents": 800
+      },
+      {
+        "productName": "Compressed Air Duster",
+        "quantity": 3,
+        "unitPriceCents": 1333
+      }
+    ]
+  },
+  {
+    "id": "ord-1026",
+    "orderNumber": "1026",
+    "orderDate": "2025-11-01",
+    "status": "Pending Payment",
+    "totalCents": 18750,
+    "items": [
+      {
+        "productName": "NAS Drive 4TB",
+        "quantity": 1,
+        "unitPriceCents": 12900
+      },
+      {
+        "productName": "NAS Enclosure",
+        "quantity": 1,
+        "unitPriceCents": 5850
+      }
+    ]
+  },
+  {
+    "id": "ord-1027",
+    "orderNumber": "1027",
+    "orderDate": "2025-10-25",
+    "status": "Delivered",
+    "totalCents": 9350,
+    "items": [
+      {
+        "productName": "Label Maker",
+        "quantity": 1,
+        "unitPriceCents": 4700
+      },
+      {
+        "productName": "Label Tape Refills (3x)",
+        "quantity": 1,
+        "unitPriceCents": 4650
+      }
+    ]
+  },
+  {
+    "id": "ord-1028",
+    "orderNumber": "1028",
+    "orderDate": "2025-10-18",
+    "status": "Shipped",
+    "totalCents": 13800,
+    "items": [
+      {
+        "productName": "Wireless Keyboard",
+        "quantity": 1,
+        "unitPriceCents": 8900
+      },
+      {
+        "productName": "Wireless Trackpad",
+        "quantity": 1,
+        "unitPriceCents": 4900
+      }
+    ]
+  },
+  {
+    "id": "ord-1029",
+    "orderNumber": "1029",
+    "orderDate": "2025-10-10",
+    "status": "Delivered",
+    "totalCents": 6750,
+    "items": [
+      {
+        "productName": "Power Strip Surge Protector",
+        "quantity": 1,
+        "unitPriceCents": 4250
+      },
+      {
+        "productName": "Extension Cord 6ft",
+        "quantity": 1,
+        "unitPriceCents": 2500
+      }
+    ]
+  },
+  {
+    "id": "ord-1030",
+    "orderNumber": "1030",
+    "orderDate": "2025-10-03",
+    "status": "Cancelled",
+    "totalCents": 11400,
+    "items": [
+      {
+        "productName": "Gaming Headset",
+        "quantity": 1,
+        "unitPriceCents": 8700
+      },
+      {
+        "productName": "Headset Stand",
+        "quantity": 1,
+        "unitPriceCents": 2700
+      }
+    ]
+  },
+  {
+    "id": "ord-1031",
+    "orderNumber": "1031",
+    "orderDate": "2025-09-25",
+    "status": "Delivered",
+    "totalCents": 2950,
+    "items": [
+      {
+        "productName": "Screen Wipes (50pk)",
+        "quantity": 2,
+        "unitPriceCents": 1000
+      },
+      {
+        "productName": "Anti-Glare Screen Protector",
+        "quantity": 1,
+        "unitPriceCents": 950
+      }
+    ]
+  },
+  {
+    "id": "ord-1032",
+    "orderNumber": "1032",
+    "orderDate": "2025-09-18",
+    "status": "Shipped",
+    "totalCents": 23700,
+    "items": [
+      {
+        "productName": "iPad Pro 11in",
+        "quantity": 1,
+        "unitPriceCents": 23700
+      }
+    ]
+  },
+  {
+    "id": "ord-1033",
+    "orderNumber": "1033",
+    "orderDate": "2025-09-10",
+    "status": "Delivered",
+    "totalCents": 7200,
+    "items": [
+      {
+        "productName": "Apple Pencil 2nd Gen",
+        "quantity": 1,
+        "unitPriceCents": 7200
+      }
+    ]
+  },
+  {
+    "id": "ord-1034",
+    "orderNumber": "1034",
+    "orderDate": "2025-09-04",
+    "status": "Processing",
+    "totalCents": 14500,
+    "items": [
+      {
+        "productName": "Thunderbolt 4 Hub",
+        "quantity": 1,
+        "unitPriceCents": 10800
+      },
+      {
+        "productName": "Thunderbolt 4 Cable 2m",
+        "quantity": 1,
+        "unitPriceCents": 3700
+      }
+    ]
+  },
+  {
+    "id": "ord-1035",
+    "orderNumber": "1035",
+    "orderDate": "2025-08-28",
+    "status": "Delivered",
+    "totalCents": 5100,
+    "items": [
+      {
+        "productName": "Sticky Note Pads (12pk)",
+        "quantity": 2,
+        "unitPriceCents": 1450
+      },
+      {
+        "productName": "Whiteboard Markers (8pk)",
+        "quantity": 1,
+        "unitPriceCents": 2200
+      }
+    ]
+  },
+  {
+    "id": "ord-1036",
+    "orderNumber": "1036",
+    "orderDate": "2025-08-20",
+    "status": "Shipped",
+    "totalCents": 8800,
+    "items": [
+      {
+        "productName": "Adjustable Monitor Arm",
+        "quantity": 1,
+        "unitPriceCents": 8800
+      }
+    ]
+  },
+  {
+    "id": "ord-1037",
+    "orderNumber": "1037",
+    "orderDate": "2025-08-12",
+    "status": "Delivered",
+    "totalCents": 3600,
+    "items": [
+      {
+        "productName": "Blue Light Glasses",
+        "quantity": 1,
+        "unitPriceCents": 3600
+      }
+    ]
+  },
+  {
+    "id": "ord-1038",
+    "orderNumber": "1038",
+    "orderDate": "2025-08-05",
+    "status": "Returned",
+    "totalCents": 16800,
+    "items": [
+      {
+        "productName": "VR Headset",
+        "quantity": 1,
+        "unitPriceCents": 16800
+      }
+    ]
+  },
+  {
+    "id": "ord-1039",
+    "orderNumber": "1039",
+    "orderDate": "2025-07-28",
+    "status": "Delivered",
+    "totalCents": 11600,
+    "items": [
+      {
+        "productName": "Smart Watch",
+        "quantity": 1,
+        "unitPriceCents": 9900
+      },
+      {
+        "productName": "Watch Band 2-Pack",
+        "quantity": 1,
+        "unitPriceCents": 1700
+      }
+    ]
+  },
+  {
+    "id": "ord-1040",
+    "orderNumber": "1040",
+    "orderDate": "2025-07-20",
+    "status": "Shipped",
+    "totalCents": 4400,
+    "items": [
+      {
+        "productName": "Silicone Keyboard Cover",
+        "quantity": 1,
+        "unitPriceCents": 1500
+      },
+      {
+        "productName": "Laptop Cooling Pad",
+        "quantity": 1,
+        "unitPriceCents": 2900
+      }
+    ]
+  },
+  {
+    "id": "ord-1041",
+    "orderNumber": "1041",
+    "orderDate": "2025-07-14",
+    "status": "Delivered",
+    "totalCents": 27300,
+    "items": [
+      {
+        "productName": "Gaming Mouse",
+        "quantity": 1,
+        "unitPriceCents": 7800
+      },
+      {
+        "productName": "Gaming Keyboard RGB",
+        "quantity": 1,
+        "unitPriceCents": 12900
+      },
+      {
+        "productName": "Extended Mouse Pad XL",
+        "quantity": 1,
+        "unitPriceCents": 6600
+      }
+    ]
+  },
+  {
+    "id": "ord-1042",
+    "orderNumber": "1042",
+    "orderDate": "2025-07-07",
+    "status": "Processing",
+    "totalCents": 9500,
+    "items": [
+      {
+        "productName": "Smart Thermostat",
+        "quantity": 1,
+        "unitPriceCents": 9500
+      }
+    ]
+  },
+  {
+    "id": "ord-1043",
+    "orderNumber": "1043",
+    "orderDate": "2025-06-29",
+    "status": "Delivered",
+    "totalCents": 5250,
+    "items": [
+      {
+        "productName": "Under-Desk Cable Management Kit",
+        "quantity": 1,
+        "unitPriceCents": 3400
+      },
+      {
+        "productName": "Velcro Cable Ties (20pk)",
+        "quantity": 1,
+        "unitPriceCents": 1850
+      }
+    ]
+  },
+  {
+    "id": "ord-1044",
+    "orderNumber": "1044",
+    "orderDate": "2025-06-22",
+    "status": "Shipped",
+    "totalCents": 15900,
+    "items": [
+      {
+        "productName": "Mirrorless Camera",
+        "quantity": 1,
+        "unitPriceCents": 15900
+      }
+    ]
+  },
+  {
+    "id": "ord-1045",
+    "orderNumber": "1045",
+    "orderDate": "2025-06-15",
+    "status": "Delivered",
+    "totalCents": 3800,
+    "items": [
+      {
+        "productName": "Camera Cleaning Kit",
+        "quantity": 1,
+        "unitPriceCents": 1600
+      },
+      {
+        "productName": "Memory Card 128GB",
+        "quantity": 2,
+        "unitPriceCents": 1100
+      }
+    ]
+  },
+  {
+    "id": "ord-1046",
+    "orderNumber": "1046",
+    "orderDate": "2025-06-08",
+    "status": "Cancelled",
+    "totalCents": 7100,
+    "items": [
+      {
+        "productName": "Drone Battery Pack",
+        "quantity": 2,
+        "unitPriceCents": 2600
+      },
+      {
+        "productName": "ND Filter Set",
+        "quantity": 1,
+        "unitPriceCents": 1900
+      }
+    ]
+  },
+  {
+    "id": "ord-1047",
+    "orderNumber": "1047",
+    "orderDate": "2025-06-01",
+    "status": "Delivered",
+    "totalCents": 21500,
+    "items": [
+      {
+        "productName": "Electric Standing Desk",
+        "quantity": 1,
+        "unitPriceCents": 21500
+      }
+    ]
+  },
+  {
+    "id": "ord-1048",
+    "orderNumber": "1048",
+    "orderDate": "2025-05-25",
+    "status": "Shipped",
+    "totalCents": 6700,
+    "items": [
+      {
+        "productName": "Desk Nameplate",
+        "quantity": 1,
+        "unitPriceCents": 2100
+      },
+      {
+        "productName": "Business Card Holder",
+        "quantity": 1,
+        "unitPriceCents": 1500
+      },
+      {
+        "productName": "Mini Desktop Plant",
+        "quantity": 2,
+        "unitPriceCents": 1550
+      }
+    ]
+  },
+  {
+    "id": "ord-1049",
+    "orderNumber": "1049",
+    "orderDate": "2025-05-18",
+    "status": "Delivered",
+    "totalCents": 12200,
+    "items": [
+      {
+        "productName": "Wireless Charging Pad",
+        "quantity": 1,
+        "unitPriceCents": 3500
+      },
+      {
+        "productName": "MagSafe Case",
+        "quantity": 1,
+        "unitPriceCents": 4900
+      },
+      {
+        "productName": "USB-C to Lightning Cable",
+        "quantity": 2,
+        "unitPriceCents": 1900
+      }
+    ]
+  },
+  {
+    "id": "ord-1050",
+    "orderNumber": "1050",
+    "orderDate": "2025-05-10",
+    "status": "Processing",
+    "totalCents": 38900,
+    "items": [
+      {
+        "productName": "Home Server Build Kit",
+        "quantity": 1,
+        "unitPriceCents": 26500
+      },
+      {
+        "productName": "DDR5 RAM 32GB Kit",
+        "quantity": 1,
+        "unitPriceCents": 12400
+      }
+    ]
   }
 ]

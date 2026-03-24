@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { OrderDetail } from './OrderDetail';
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 20;
 
 const VIEW_STATES = {
   loading: 'loading',
