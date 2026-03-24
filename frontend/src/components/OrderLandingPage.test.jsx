@@ -30,6 +30,14 @@ const orderHistory = [
   },
 ];
 
+const largeOrderHistory = Array.from({ length: 11 }, (_, i) => ({
+  id: `ord-${2000 + i}`,
+  orderNumber: `${2000 + i}`,
+  orderDate: `2026-03-${String(i + 1).padStart(2, '0')}`,
+  status: i % 2 === 0 ? 'Delivered' : 'Shipped',
+  totalCents: (i + 1) * 1000,
+}));
+
 const orderDetailsById = {
   'ord-1001': {
     id: 'ord-1001',
@@ -123,4 +131,114 @@ test('shows empty state when no orders exist', async () => {
 
   expect(await screen.findByText('No orders found.')).toBeTruthy();
   expect(screen.getByText('Select an order to view details.')).toBeTruthy();
+});
+
+test('live search filters orders by status', async () => {
+  const fetchOrderHistory = vi.fn().mockResolvedValue(orderHistory);
+  const fetchOrderDetail = vi.fn();
+
+  render(<OrderLandingPage fetchOrderHistory={fetchOrderHistory} fetchOrderDetail={fetchOrderDetail} />);
+
+  await screen.findByRole('table');
+
+  const searchInput = screen.getByRole('searchbox', { name: 'Search orders' });
+  fireEvent.change(searchInput, { target: { value: 'delivered' } });
+
+  expect(screen.getByText('ord-1001')).toBeTruthy();
+  expect(screen.queryByText('ord-1002')).toBeNull();
+  expect(screen.queryByText('ord-1003')).toBeNull();
+});
+
+test('live search filters orders by order id', async () => {
+  const fetchOrderHistory = vi.fn().mockResolvedValue(orderHistory);
+  const fetchOrderDetail = vi.fn();
+
+  render(<OrderLandingPage fetchOrderHistory={fetchOrderHistory} fetchOrderDetail={fetchOrderDetail} />);
+
+  await screen.findByRole('table');
+
+  const searchInput = screen.getByRole('searchbox', { name: 'Search orders' });
+  fireEvent.change(searchInput, { target: { value: 'ord-1003' } });
+
+  expect(screen.queryByText('ord-1001')).toBeNull();
+  expect(screen.queryByText('ord-1002')).toBeNull();
+  expect(screen.getByText('ord-1003')).toBeTruthy();
+});
+
+test('live search with no matches shows empty row', async () => {
+  const fetchOrderHistory = vi.fn().mockResolvedValue(orderHistory);
+  const fetchOrderDetail = vi.fn();
+
+  render(<OrderLandingPage fetchOrderHistory={fetchOrderHistory} fetchOrderDetail={fetchOrderDetail} />);
+
+  await screen.findByRole('table');
+
+  const searchInput = screen.getByRole('searchbox', { name: 'Search orders' });
+  fireEvent.change(searchInput, { target: { value: 'zzznomatch' } });
+
+  expect(screen.getByText('No orders match your search.')).toBeTruthy();
+});
+
+test('pagination shows first page and navigates to next page', async () => {
+  const fetchOrderHistory = vi.fn().mockResolvedValue(largeOrderHistory);
+  const fetchOrderDetail = vi.fn();
+
+  render(<OrderLandingPage fetchOrderHistory={fetchOrderHistory} fetchOrderDetail={fetchOrderDetail} />);
+
+  await screen.findByRole('table');
+
+  expect(screen.getByText('Page 1 of 3')).toBeTruthy();
+  expect(screen.getByRole('button', { name: 'Previous page' })).toBeTruthy();
+  expect(screen.getByRole('button', { name: 'Next page' })).toBeTruthy();
+
+  fireEvent.click(screen.getByRole('button', { name: 'Next page' }));
+  expect(screen.getByText('Page 2 of 3')).toBeTruthy();
+});
+
+test('prev page button is disabled on first page and next is disabled on last page', async () => {
+  const fetchOrderHistory = vi.fn().mockResolvedValue(largeOrderHistory);
+  const fetchOrderDetail = vi.fn();
+
+  render(<OrderLandingPage fetchOrderHistory={fetchOrderHistory} fetchOrderDetail={fetchOrderDetail} />);
+
+  await screen.findByRole('table');
+
+  expect(screen.getByRole('button', { name: 'Previous page' }).disabled).toBe(true);
+  expect(screen.getByRole('button', { name: 'Next page' }).disabled).toBe(false);
+
+  fireEvent.click(screen.getByRole('button', { name: 'Next page' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Next page' }));
+
+  expect(screen.getByText('Page 3 of 3')).toBeTruthy();
+  expect(screen.getByRole('button', { name: 'Next page' }).disabled).toBe(true);
+  expect(screen.getByRole('button', { name: 'Previous page' }).disabled).toBe(false);
+});
+
+test('pagination resets to page 1 when search query changes', async () => {
+  const fetchOrderHistory = vi.fn().mockResolvedValue(largeOrderHistory);
+  const fetchOrderDetail = vi.fn();
+
+  render(<OrderLandingPage fetchOrderHistory={fetchOrderHistory} fetchOrderDetail={fetchOrderDetail} />);
+
+  await screen.findByRole('table');
+
+  fireEvent.click(screen.getByRole('button', { name: 'Next page' }));
+  expect(screen.getByText('Page 2 of 3')).toBeTruthy();
+
+  const searchInput = screen.getByRole('searchbox', { name: 'Search orders' });
+  fireEvent.change(searchInput, { target: { value: 'delivered' } });
+
+  expect(screen.getByText('Page 1 of 2')).toBeTruthy();
+});
+
+test('pagination is hidden when all orders fit on one page', async () => {
+  const fetchOrderHistory = vi.fn().mockResolvedValue(orderHistory);
+  const fetchOrderDetail = vi.fn();
+
+  render(<OrderLandingPage fetchOrderHistory={fetchOrderHistory} fetchOrderDetail={fetchOrderDetail} />);
+
+  await screen.findByRole('table');
+
+  expect(screen.queryByRole('button', { name: 'Previous page' })).toBeNull();
+  expect(screen.queryByRole('button', { name: 'Next page' })).toBeNull();
 });
