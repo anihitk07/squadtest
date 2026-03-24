@@ -242,3 +242,66 @@ test('pagination is hidden when all orders fit on one page', async () => {
   expect(screen.queryByRole('button', { name: 'Previous page' })).toBeNull();
   expect(screen.queryByRole('button', { name: 'Next page' })).toBeNull();
 });
+
+test('column filter for status filters orders', async () => {
+  const fetchOrderHistory = vi.fn().mockResolvedValue(orderHistory);
+  const fetchOrderDetail = vi.fn();
+
+  render(<OrderLandingPage fetchOrderHistory={fetchOrderHistory} fetchOrderDetail={fetchOrderDetail} />);
+
+  await screen.findByRole('table');
+
+  const statusFilter = screen.getByRole('searchbox', { name: 'Filter by Status' });
+  fireEvent.change(statusFilter, { target: { value: 'processing' } });
+
+  expect(screen.queryByText('ord-1001')).toBeNull();
+  expect(screen.queryByText('ord-1002')).toBeNull();
+  expect(screen.getByText('ord-1003')).toBeTruthy();
+});
+
+test('column filter for order id filters orders', async () => {
+  const fetchOrderHistory = vi.fn().mockResolvedValue(orderHistory);
+  const fetchOrderDetail = vi.fn();
+
+  render(<OrderLandingPage fetchOrderHistory={fetchOrderHistory} fetchOrderDetail={fetchOrderDetail} />);
+
+  await screen.findByRole('table');
+
+  const idFilter = screen.getByRole('searchbox', { name: 'Filter by Order ID' });
+  fireEvent.change(idFilter, { target: { value: 'ord-1002' } });
+
+  expect(screen.queryByText('ord-1001')).toBeNull();
+  expect(screen.getByText('ord-1002')).toBeTruthy();
+  expect(screen.queryByText('ord-1003')).toBeNull();
+});
+
+test('column filter with no matches shows empty row', async () => {
+  const fetchOrderHistory = vi.fn().mockResolvedValue(orderHistory);
+  const fetchOrderDetail = vi.fn();
+
+  render(<OrderLandingPage fetchOrderHistory={fetchOrderHistory} fetchOrderDetail={fetchOrderDetail} />);
+
+  await screen.findByRole('table');
+
+  const statusFilter = screen.getByRole('searchbox', { name: 'Filter by Status' });
+  fireEvent.change(statusFilter, { target: { value: 'zzznomatch' } });
+
+  expect(screen.getByText('No orders match your search.')).toBeTruthy();
+});
+
+test('column filter resets pagination to page 1', async () => {
+  const fetchOrderHistory = vi.fn().mockResolvedValue(largeOrderHistory);
+  const fetchOrderDetail = vi.fn();
+
+  render(<OrderLandingPage fetchOrderHistory={fetchOrderHistory} fetchOrderDetail={fetchOrderDetail} />);
+
+  await screen.findByRole('table');
+
+  fireEvent.click(screen.getByRole('button', { name: 'Next page' }));
+  expect(screen.getByText('Page 2 of 3')).toBeTruthy();
+
+  const statusFilter = screen.getByRole('searchbox', { name: 'Filter by Status' });
+  fireEvent.change(statusFilter, { target: { value: 'delivered' } });
+
+  expect(screen.getByText('Page 1 of 2')).toBeTruthy();
+});

@@ -218,6 +218,32 @@
   background: var(--table-header-bg, #f7f8ff);
 }
 
+.order-grid-filter-row th {
+  padding: 0.35rem 0.6rem;
+}
+
+.column-filter-input {
+  width: 100%;
+  padding: 0.28rem 0.5rem;
+  border: 1px solid var(--border-color, #d9def2);
+  border-radius: 0.4rem;
+  background: var(--bg-panel, #fff);
+  color: var(--text-primary, #172036);
+  font: inherit;
+  font-size: 0.82rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.column-filter-input::placeholder {
+  color: var(--text-secondary, #596780);
+}
+
+.column-filter-input:focus {
+  border-color: var(--border-strong, #b8c3ed);
+  outline: none;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--active-bg, #7a5cff) 15%, transparent);
+}
+
 .orders-table tr:last-child td {
   border-bottom: none;
 }
