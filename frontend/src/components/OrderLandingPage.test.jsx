@@ -30,10 +30,10 @@ const orderHistory = [
   },
 ];
 
-const largeOrderHistory = Array.from({ length: 11 }, (_, i) => ({
+const largeOrderHistory = Array.from({ length: 50 }, (_, i) => ({
   id: `ord-${2000 + i}`,
   orderNumber: `${2000 + i}`,
-  orderDate: `2026-03-${String(i + 1).padStart(2, '0')}`,
+  orderDate: `2026-03-${String((i % 28) + 1).padStart(2, '0')}`,
   status: i % 2 === 0 ? 'Delivered' : 'Shipped',
   totalCents: (i + 1) * 1000,
 }));
