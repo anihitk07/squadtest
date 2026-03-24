@@ -1,16 +1,21 @@
 const assert = require('node:assert/strict');
 const Module = require('node:module');
-const fs = require('node:fs');
 const path = require('node:path');
 const test = require('node:test');
 
 const envModulePath = require.resolve('../config/env');
 const clientModulePath = require.resolve('./client');
-
 const originalEnvModule = require.cache[envModulePath];
+const originalFsMkdirSync = require('node:fs').mkdirSync;
+const sqlite = require('node:sqlite');
+const originalDatabaseSync = sqlite.DatabaseSync;
 
-function loadClientWithMocks({ dbFile }) {
+function loadClientWithOverrides({ dbFile }) {
   delete require.cache[clientModulePath];
+
+  const fsCalls = [];
+  const sqliteInstances = [];
+  const execCalls = [];
 
   const mockedEnvModule = new Module(envModulePath);
   mockedEnvModule.exports = {
@@ -18,7 +23,27 @@ function loadClientWithMocks({ dbFile }) {
   };
   mockedEnvModule.loaded = true;
   require.cache[envModulePath] = mockedEnvModule;
-  return require('./client');
+
+  require('node:fs').mkdirSync = (dir, options) => {
+    fsCalls.push({ dir, options });
+  };
+
+  sqlite.DatabaseSync = class FakeDatabaseSync {
+    constructor(file) {
+      sqliteInstances.push(file);
+    }
+
+    exec(sql) {
+      execCalls.push(sql);
+    }
+  };
+
+  return {
+    client: require('./client'),
+    fsCalls,
+    sqliteInstances,
+    execCalls,
+  };
 }
 
 function restoreAllModules() {
@@ -29,6 +54,9 @@ function restoreAllModules() {
   } else {
     delete require.cache[envModulePath];
   }
+
+  require('node:fs').mkdirSync = originalFsMkdirSync;
+  sqlite.DatabaseSync = originalDatabaseSync;
 }
 
 test.afterEach(() => {
@@ -36,24 +64,20 @@ test.afterEach(() => {
 });
 
 test('getDb initializes sqlite file once and enables foreign keys', () => {
-  const dbFile = path.resolve(__dirname, '..', '..', '..', 'data', 'client-test.sqlite');
-  fs.mkdirSync(path.dirname(dbFile), { recursive: true });
+  const dbFile = path.resolve('C:\\data\\orders.sqlite');
+  const { client, fsCalls, sqliteInstances, execCalls } = loadClientWithOverrides({ dbFile });
 
-  if (fs.existsSync(dbFile)) {
-    fs.unlinkSync(dbFile);
-  }
-
-  const client = loadClientWithMocks({ dbFile });
   const first = client.getDb();
   const second = client.getDb();
 
   assert.ok(first);
   assert.equal(first, second);
-  assert.equal(fs.existsSync(dbFile), true);
-
-  const pragmaRow = first.prepare('PRAGMA foreign_keys;').get();
-  assert.equal(pragmaRow.foreign_keys, 1);
-
-  first.close();
-  fs.unlinkSync(dbFile);
+  assert.deepEqual(fsCalls, [
+    {
+      dir: path.dirname(dbFile),
+      options: { recursive: true },
+    },
+  ]);
+  assert.deepEqual(sqliteInstances, [dbFile]);
+  assert.deepEqual(execCalls, ['PRAGMA foreign_keys = ON;']);
 });

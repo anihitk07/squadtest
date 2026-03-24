@@ -25,6 +25,11 @@ const SORTABLE_COLUMNS = [
   { key: 'totalCents', label: 'Total', numeric: true },
 ];
 
+const currencyFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
+
 function compareValues(aValue, bValue, isNumeric) {
   if (isNumeric) {
     return Number(aValue) - Number(bValue);
@@ -46,6 +51,19 @@ function sortOrders(orders, sortConfig) {
 
     return String(left.id).localeCompare(String(right.id));
   });
+}
+
+function getStatusTone(status) {
+  const value = String(status || '').toLowerCase();
+  if (['delivered', 'shipped', 'complete', 'completed'].includes(value)) {
+    return 'status-success';
+  }
+
+  if (['processing', 'pending', 'in transit'].includes(value)) {
+    return 'status-progress';
+  }
+
+  return 'status-neutral';
 }
 
 export function OrderLandingPage({ fetchOrderHistory, fetchOrderDetail }) {
@@ -229,8 +247,10 @@ export function OrderLandingPage({ fetchOrderHistory, fetchOrderDetail }) {
                         </button>
                       </td>
                       <td>{order.orderDate}</td>
-                      <td>{order.status}</td>
-                      <td>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(order.totalCents / 100)}</td>
+                      <td>
+                        <span className={`status-chip ${getStatusTone(order.status)}`}>{order.status}</span>
+                      </td>
+                      <td>{currencyFormatter.format(order.totalCents / 100)}</td>
                     </tr>
                   );
                 })}
