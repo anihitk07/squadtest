@@ -1,0 +1,128 @@
+name: Update Issues on PR Open
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: read
+  issues: write
+
+jobs:
+  close-linked-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Close linked issues when PR is opened
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const pr = context.payload.pull_request;
+            const prText = `${pr.title}\n${pr.body || ''}`;
+            const branchName = pr.head?.ref || "";
+
+            const closingKeywordRegex = /\b(?:close[sd]?|fix(?:e[sd])?|resolve[sd]?)\b/i;
+            const issueRefRegex = /(?:#(\d+)|([A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+)#(\d+)|https:\/\/github\.com\/([A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+)\/issues\/(\d+))/g;
+
+            function extractIssueNumbers(line) {
+              const issueNumbers = [];
+              let match;
+              while ((match = issueRefRegex.exec(line)) !== null) {
+                const localIssue = match[1];
+                const repoIssueRepo = match[2];
+                const repoIssueNumber = match[3];
+                const urlIssueRepo = match[4];
+                const urlIssueNumber = match[5];
+
+                if (localIssue) {
+                  issueNumbers.push(Number(localIssue));
+                  continue;
+                }
+
+                if (repoIssueRepo && repoIssueNumber) {
+                  if (repoIssueRepo.toLowerCase() === `${owner}/${repo}`.toLowerCase()) {
+                    issueNumbers.push(Number(repoIssueNumber));
+                  }
+                  continue;
+                }
+
+                if (urlIssueRepo && urlIssueNumber) {
+                  if (urlIssueRepo.toLowerCase() === `${owner}/${repo}`.toLowerCase()) {
+                    issueNumbers.push(Number(urlIssueNumber));
+                  }
+                }
+              }
+              return issueNumbers;
+            }
+
+            const linkedIssueNumbers = new Set();
+            for (const line of prText.split(/\r?\n/)) {
+              if (!closingKeywordRegex.test(line)) {
+                continue;
+              }
+              for (const issueNumber of extractIssueNumbers(line)) {
+                linkedIssueNumbers.add(issueNumber);
+              }
+            }
+
+            // Branch convention fallback: squad/<issue-number>-slug
+            // Example: squad/42-fix-order-grid
+            const branchMatch = branchName.match(/^squad\/(\d+)(?:[-_/].*)?$/i);
+            if (branchMatch) {
+              linkedIssueNumbers.add(Number(branchMatch[1]));
+            }
+
+            if (linkedIssueNumbers.size === 0) {
+              core.info("No linked issues found via PR text or branch convention.");
+              return;
+            }
+
+            core.info(`Linked issues found: ${Array.from(linkedIssueNumbers).join(", ")}`);
+
+            for (const issueNumber of linkedIssueNumbers) {
+              let issue;
+              try {
+                const response = await github.rest.issues.get({
+                  owner,
+                  repo,
+                  issue_number: issueNumber
+                });
+                issue = response.data;
+              } catch (error) {
+                core.warning(`Skipping #${issueNumber}: unable to read issue (${error.message}).`);
+                continue;
+              }
+
+              if (issue.state === "closed") {
+                core.info(`#${issueNumber} already closed. Skipping.`);
+                continue;
+              }
+
+              const commentBody = [
+                `🔄 Linked PR opened: #${pr.number} (${pr.title})`,
+                "",
+                `Closing this issue now for workflow tracking.`,
+                `If anything is still pending, the repository owner can reopen this issue at any time.`,
+                "",
+                `PR link: ${pr.html_url}`
+              ].join("\n");
+
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                body: commentBody
+              });
+
+              await github.rest.issues.update({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                state: "closed"
+              });
+
+              core.info(`Closed issue #${issueNumber} after PR #${pr.number} opened.`);
+            }
+
