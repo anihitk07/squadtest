@@ -6,12 +6,26 @@ import { UserProfilePage } from './components/UserProfilePage';
 import { SettingsPage } from './components/SettingsPage';
 import './App.css';
 
+function getInitials(fullName) {
+  const nameParts = (fullName || '').split(' ').filter(Boolean);
+  if (nameParts.length === 0) return '?';
+  if (nameParts.length === 1) return nameParts[0][0].toUpperCase();
+  return `${nameParts[0][0]}${nameParts[nameParts.length - 1][0]}`.toUpperCase();
+}
+
 function App() {
   const [currentView, setCurrentView] = useState('orders');
+  const [profileInitials, setProfileInitials] = useState('');
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
+  }, []);
+
+  useEffect(() => {
+    fetchUserProfile()
+      .then((profile) => setProfileInitials(getInitials(profile.fullName)))
+      .catch(() => setProfileInitials('?'));
   }, []);
 
   const pageTitleByView = {
@@ -29,8 +43,20 @@ function App() {
   return (
     <main className="app-shell">
       <header>
-        <h1>{pageTitleByView[currentView]}</h1>
-        <p>{pageDescriptionByView[currentView]}</p>
+        <div className="header-top">
+          <div className="header-title">
+            <h1>{pageTitleByView[currentView]}</h1>
+            <p>{pageDescriptionByView[currentView]}</p>
+          </div>
+          <button
+            className="profile-avatar-btn"
+            onClick={() => setCurrentView('profile')}
+            aria-label="Open user profile"
+            title="User profile"
+          >
+            {profileInitials || '?'}
+          </button>
+        </div>
         <nav className="app-nav">
           <button
             className={`nav-button ${currentView === 'orders' ? 'active' : ''}`}

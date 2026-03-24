@@ -1,11 +1,23 @@
 .app-shell {
-  max-width: 960px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 2rem 2rem;
 }
 
 .app-shell > header {
   margin-bottom: 1rem;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.header-title {
+  flex: 1;
+  min-width: 0;
 }
 
 .app-shell > header h1 {
@@ -18,10 +30,32 @@
   gap: 0.5rem;
 }
 
+.profile-avatar-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 2px solid var(--active-bg, #2563eb);
+  background: color-mix(in srgb, var(--active-bg, #2563eb) 15%, var(--bg-panel, #ffffff));
+  color: var(--active-bg, #2563eb);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.profile-avatar-btn:hover {
+  background: color-mix(in srgb, var(--active-bg, #2563eb) 25%, var(--bg-panel, #ffffff));
+  transform: scale(1.05);
+}
+
 .nav-button {
   padding: 0.5rem 1rem;
   border: 1px solid var(--border-color, #d9e0ea);
-  background: var(--panel-bg, #ffffff);
+  background: var(--bg-panel, #ffffff);
   color: var(--text-primary, #1f2937);
   border-radius: 0.5rem;
   cursor: pointer;
@@ -46,6 +80,13 @@
 
 .orders-layout {
   align-items: start;
+  grid-template-columns: 3fr 2fr;
+}
+
+@media (max-width: 768px) {
+  .orders-layout {
+    grid-template-columns: 1fr;
+  }
 }
 
 .panel {
@@ -344,6 +385,10 @@
 }
 
 @media (max-width: 720px) {
+  .app-shell {
+    padding: 1rem;
+  }
+
   .orders-table {
     min-width: 100%;
   }
