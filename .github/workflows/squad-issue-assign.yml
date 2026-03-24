@@ -2,7 +2,7 @@ name: Squad Issue Assign
 
 on:
   issues:
-    types: [labeled]
+    types: [opened, labeled]
 
 permissions:
   issues: write
@@ -11,7 +11,9 @@ permissions:
 jobs:
   assign-work:
     # Only trigger on squad:{member} labels (not the base "squad" label)
-    if: startsWith(github.event.label.name, 'squad:')
+    if: >-
+      (github.event.action == 'labeled' && startsWith(github.event.label.name, 'squad:')) ||
+      (github.event.action == 'opened' && contains(join(github.event.issue.labels.*.name, ','), 'squad:'))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,7 +24,21 @@ jobs:
           script: |
             const fs = require('fs');
             const issue = context.payload.issue;
-            const label = context.payload.label.name;
+            const issueLabels = (issue.labels || [])
+              .map(l => typeof l === 'string' ? l : l.name)
+              .filter(Boolean);
+
+            let label = context.payload.label?.name;
+            if (!label || !label.startsWith('squad:')) {
+              label = issueLabels.includes('squad:copilot')
+                ? 'squad:copilot'
+                : issueLabels.find(name => name.startsWith('squad:'));
+            }
+
+            if (!label) {
+              core.info(`Issue #${issue.number} has no squad:* label — skipping assignment`);
+              return;
+            }
 
             // Extract member name from label (e.g., "squad:ripley" → "ripley")
             const memberName = label.replace('squad:', '').toLowerCase();
@@ -115,7 +131,9 @@ jobs:
 
       # Separate step: assign @copilot using PAT (required for coding agent)
       - name: Assign @copilot coding agent
-        if: github.event.label.name == 'squad:copilot'
+        if: >-
+          (github.event.action == 'labeled' && github.event.label.name == 'squad:copilot') ||
+          (github.event.action == 'opened' && contains(join(github.event.issue.labels.*.name, ','), 'squad:copilot'))
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.COPILOT_ASSIGN_TOKEN }}
