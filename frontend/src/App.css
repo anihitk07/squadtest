@@ -44,6 +44,10 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
+.orders-layout {
+  align-items: start;
+}
+
 .panel {
   background: var(--bg-panel, #ffffff);
   border: 1px solid var(--border-color, #d9e0ea);
@@ -54,6 +58,63 @@
 
 .panel h2 {
   margin-bottom: 0.75rem;
+}
+
+.order-grid-wrapper {
+  overflow-x: auto;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 520px;
+}
+
+.orders-table th,
+.orders-table td {
+  border-bottom: 1px solid var(--border-color, #d9e0ea);
+  padding: 0.65rem 0.5rem;
+  text-align: left;
+  color: var(--text-primary, #1f2937);
+}
+
+.orders-table th:last-child,
+.orders-table td:last-child {
+  text-align: right;
+}
+
+.orders-table tbody tr:hover {
+  background: var(--hover-bg, #f1f5f9);
+}
+
+.orders-table tbody tr.is-selected {
+  background: color-mix(in srgb, var(--active-bg, #2563eb) 12%, transparent);
+}
+
+.sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: none;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.sort-indicator {
+  width: 0.7rem;
+  font-size: 0.8rem;
+}
+
+.order-id-link {
+  border: none;
+  background: transparent;
+  color: var(--active-bg, #2563eb);
+  text-decoration: underline;
+  padding: 0;
+  cursor: pointer;
 }
 
 .profile-page {
@@ -280,4 +341,16 @@
 
 .theme-toggle:hover {
   transform: scale(1.1);
+}
+
+@media (max-width: 720px) {
+  .orders-table {
+    min-width: 100%;
+  }
+
+  .orders-table th,
+  .orders-table td {
+    font-size: 0.9rem;
+    padding: 0.55rem 0.35rem;
+  }
 }

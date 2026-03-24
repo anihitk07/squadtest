@@ -23,3 +23,5 @@
 - 2026-03-24: Implemented `GET /api/profile` with route-level 404/500 boundaries and repository-only SQL in `backend/src/db/profile-repository.js`.
 - 2026-03-24: Extended SQLite schema/init seeding with `user_profile` table and `backend/data/seed/profile.json`, ensuring idempotent profile retrieval initialization.
 - 2026-03-24: Verified backend baseline (`npm test`, `npm run db:init`) and profile API smoke scenarios for 200, 404, and 500 contracts.
+- 2026-03-24: Expanded backend/data/seed/orders.json from 3 to 11 order records with varied statuses, totals, dates, and identifiers to support landing-dashboard sorting demos without changing API response shape.
+- 2026-03-24: Verified seed integrity by running backend tests and db init against an isolated SQLite file, then validating each order total equals the sum of its line items.

@@ -2,7 +2,7 @@
   {
     "id": "ord-1001",
     "orderNumber": "1001",
-    "orderDate": "2026-03-20",
+    "orderDate": "2026-03-22",
     "status": "Delivered",
     "totalCents": 9950,
     "items": [
@@ -21,7 +21,7 @@
   {
     "id": "ord-1002",
     "orderNumber": "1002",
-    "orderDate": "2026-03-18",
+    "orderDate": "2026-03-21",
     "status": "Shipped",
     "totalCents": 7300,
     "items": [
@@ -40,7 +40,7 @@
   {
     "id": "ord-1003",
     "orderNumber": "1003",
-    "orderDate": "2026-03-14",
+    "orderDate": "2026-03-19",
     "status": "Processing",
     "totalCents": 15600,
     "items": [
@@ -48,6 +48,158 @@
         "productName": "Mechanical Keyboard",
         "quantity": 1,
         "unitPriceCents": 15600
+      }
+    ]
+  },
+  {
+    "id": "ord-1004",
+    "orderNumber": "1004",
+    "orderDate": "2026-03-17",
+    "status": "Pending Payment",
+    "totalCents": 12850,
+    "items": [
+      {
+        "productName": "USB-C Dock",
+        "quantity": 1,
+        "unitPriceCents": 8950
+      },
+      {
+        "productName": "HDMI Cable",
+        "quantity": 2,
+        "unitPriceCents": 1950
+      }
+    ]
+  },
+  {
+    "id": "ord-1005",
+    "orderNumber": "1005",
+    "orderDate": "2026-03-15",
+    "status": "Out for Delivery",
+    "totalCents": 22100,
+    "items": [
+      {
+        "productName": "27in Monitor",
+        "quantity": 1,
+        "unitPriceCents": 18900
+      },
+      {
+        "productName": "Screen Cleaning Kit",
+        "quantity": 1,
+        "unitPriceCents": 3200
+      }
+    ]
+  },
+  {
+    "id": "ord-1006",
+    "orderNumber": "1006",
+    "orderDate": "2026-03-12",
+    "status": "Delivered",
+    "totalCents": 5400,
+    "items": [
+      {
+        "productName": "Notebook Set",
+        "quantity": 3,
+        "unitPriceCents": 1200
+      },
+      {
+        "productName": "Gel Pen Pack",
+        "quantity": 1,
+        "unitPriceCents": 1800
+      }
+    ]
+  },
+  {
+    "id": "ord-1007",
+    "orderNumber": "1007",
+    "orderDate": "2026-03-10",
+    "status": "Cancelled",
+    "totalCents": 6400,
+    "items": [
+      {
+        "productName": "Laptop Sleeve",
+        "quantity": 1,
+        "unitPriceCents": 2600
+      },
+      {
+        "productName": "Bluetooth Tracker",
+        "quantity": 2,
+        "unitPriceCents": 1900
+      }
+    ]
+  },
+  {
+    "id": "ord-1008",
+    "orderNumber": "1008",
+    "orderDate": "2026-03-06",
+    "status": "Returned",
+    "totalCents": 11200,
+    "items": [
+      {
+        "productName": "Webcam 1080p",
+        "quantity": 1,
+        "unitPriceCents": 7600
+      },
+      {
+        "productName": "USB Microphone",
+        "quantity": 1,
+        "unitPriceCents": 3600
+      }
+    ]
+  },
+  {
+    "id": "ord-1009",
+    "orderNumber": "1009",
+    "orderDate": "2026-02-28",
+    "status": "Delivered",
+    "totalCents": 48750,
+    "items": [
+      {
+        "productName": "Ergonomic Chair",
+        "quantity": 1,
+        "unitPriceCents": 42900
+      },
+      {
+        "productName": "Assembly Service",
+        "quantity": 1,
+        "unitPriceCents": 5850
+      }
+    ]
+  },
+  {
+    "id": "ord-1010",
+    "orderNumber": "1010",
+    "orderDate": "2026-02-20",
+    "status": "Shipped",
+    "totalCents": 3050,
+    "items": [
+      {
+        "productName": "Cable Organizer Clips",
+        "quantity": 1,
+        "unitPriceCents": 1250
+      },
+      {
+        "productName": "Hook-and-Loop Straps",
+        "quantity": 2,
+        "unitPriceCents": 900
+      }
+    ]
+  },
+  {
+    "id": "ord-1011",
+    "orderNumber": "1011",
+    "orderDate": "2026-01-30",
+    "status": "Processing",
+    "totalCents": 17800,
+    "items": [
+      {
+        "productName": "Portable SSD 1TB",
+        "quantity": 1,
+        "unitPriceCents": 10900
+      },
+      {
+        "productName": "Cloud Backup (1 Year)",
+        "quantity": 1,
+        "unitPriceCents": 6900
       }
     ]
   }
