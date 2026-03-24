@@ -1,9 +1,11 @@
 import { afterEach, expect, test, vi } from 'vitest';
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { UserProfilePage } from './UserProfilePage';
 
 afterEach(() => {
   cleanup();
+  localStorage.clear();
+  document.documentElement.removeAttribute('data-theme');
 });
 
 function deferredPromise() {
@@ -87,4 +89,30 @@ test('renders generic error state for non-404 failures', async () => {
 
   expect(await screen.findByText('Failed to retrieve profile.')).toBeTruthy();
   expect(screen.queryByLabelText('User profile card')).toBeNull();
+});
+
+test('shows dark mode toggle defaulting to light theme', () => {
+  const fetchProfile = vi.fn(() => new Promise(() => {}));
+
+  render(<UserProfilePage fetchProfile={fetchProfile} />);
+
+  expect(screen.getByRole('button', { name: 'Switch to dark mode' })).toBeTruthy();
+  expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+  expect(localStorage.getItem('theme')).toBe('light');
+});
+
+test('reads saved theme preference and toggles dark mode with persistence', () => {
+  localStorage.setItem('theme', 'dark');
+  const fetchProfile = vi.fn(() => new Promise(() => {}));
+
+  render(<UserProfilePage fetchProfile={fetchProfile} />);
+
+  const toggle = screen.getByRole('button', { name: 'Switch to light mode' });
+  expect(toggle).toBeTruthy();
+  expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+
+  fireEvent.click(toggle);
+  expect(screen.getByRole('button', { name: 'Switch to dark mode' })).toBeTruthy();
+  expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+  expect(localStorage.getItem('theme')).toBe('light');
 });

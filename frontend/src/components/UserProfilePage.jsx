@@ -12,6 +12,16 @@ export function UserProfilePage({ fetchProfile }) {
   const [viewState, setViewState] = useState(VIEW_STATES.loading);
   const [profile, setProfile] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -68,6 +78,22 @@ export function UserProfilePage({ fetchProfile }) {
       {viewState === VIEW_STATES.error ? <p className="error-banner">{errorMessage}</p> : null}
 
       {viewState === VIEW_STATES.success && profile ? <UserProfileCard profile={profile} /> : null}
+
+      <div className="settings-section profile-settings">
+        <div className="setting-row">
+          <div className="setting-info">
+            <h3>Dark Mode</h3>
+            <p className="setting-description">Switch between light and dark theme</p>
+          </div>
+          <button
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+          >
+            {theme === 'light' ? '🌙' : '☀️'}
+          </button>
+        </div>
+      </div>
     </section>
   );
 }
