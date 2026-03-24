@@ -97,8 +97,39 @@ Backend exposes minimal initial API surface: `/api/orders` (list), `/api/orders/
 - Foundation for adding profile feature tests in future iterations
 - No custom test harness overhead
 
+
+
+- All meaningful changes require team consensus
+- Document architectural decisions here
+- Keep history focused on work, decisions focused on direction
+
+
+### 2026-03-24: Dark mode toggle with theme persistence
+
+**By:** Vasquez
+
+**What:** Added dark mode toggle to Settings page with full theme support:
+- Created SettingsPage component with toggle control
+- Theme persists via localStorage with key 	heme-preference
+- CSS custom properties (--bg-primary, --text-primary, --text-secondary, --bg-secondary, --border-color) for all UI elements
+- Data attribute [data-theme="dark"] applies dark theme values
+- Smooth 0.3s CSS transitions between themes
+- All existing components (profile, orders, panels) automatically theme-aware
+- Navigation updated in App.jsx for Settings view switching
+
+**Why:** Provides user preference for light/dark theme, improving accessibility and reducing eye strain in low-light environments. Uses CSS variables for maintainable, consistent theme switching across all components without prop drilling or context overhead.
+
+**Impact:**
+- All existing components automatically theme-aware via CSS variables
+- Theme preference persists across sessions via localStorage
+- Simple navigation added to App for Profile/Settings switching
+- Pattern established for future theme extensions (e.g., custom themes, high-contrast modes)
+- Lean implementation—no additional state management libraries needed
+- Smooth transitions improve user experience
+
 ## Governance
 
 - All meaningful changes require team consensus
 - Document architectural decisions here
 - Keep history focused on work, decisions focused on direction
+
