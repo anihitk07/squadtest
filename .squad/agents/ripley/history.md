@@ -7,6 +7,9 @@
 
 ## Learnings
 
+- Issue #23: Created `hello.txt` at repo root with "Hello from Squad on ACA!" content. Simple validation task confirming Squad agent workflow on Azure Container Apps environment.
+
+
 - Initial assignment: Lead for architecture, scope, and review decisions.
 - Core flow: order history list in React; click reveals order details via Node.js API backed by SQLite.
 - Established 3-tier layout: `frontend/`, `backend/`, `shared/` with explicit boundary artifacts in `shared/contracts` and `shared/config`.
